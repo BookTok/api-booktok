@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Publishers;
+use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +18,7 @@ class PubliserSeeder extends Seeder
             $user = User::factory()->create([
                 'rol' => 'EDI'
             ]);
-            Publishers::factory()->create([
+            Publisher::factory()->create([
                 'id_user' =>  $user->id
             ]);
         }

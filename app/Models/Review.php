@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reviews extends Model
+class Review extends Model
 {
     use HasFactory;
     public $timestamps = false;
@@ -24,6 +24,6 @@ class Reviews extends Model
 
     public function book()
     {
-        return $this->belongsTo(Books::class, 'id_book');
+        return $this->belongsTo(Book::class, 'id_book');
     }
 }

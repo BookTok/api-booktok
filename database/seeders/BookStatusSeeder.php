@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
+use App\Models\Book;
 use App\Models\BookStatus;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,7 +16,7 @@ class BookStatusSeeder extends Seeder
     public function run(): void
     {
         $userIds = User::where('rol', 'REG')->pluck('id')->toArray();
-        $bookIds = Books::pluck('id')->toArray();
+        $bookIds = Book::pluck('id')->toArray();
 
         $statuses = ['READ', 'READING', 'WISH'];
 

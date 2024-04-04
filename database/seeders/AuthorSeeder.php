@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Authors;
+use App\Models\Author;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +18,7 @@ class AuthorSeeder extends Seeder
             $user = User::factory()->create([
                 'rol' => 'AUT'
             ]);
-            Authors::factory()->create([
+            Author::factory()->create([
                 'id_user' =>  $user->id
             ]);
         }

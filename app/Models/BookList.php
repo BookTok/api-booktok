@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookLists extends Model
+class BookList extends Model
 {
     protected $table = 'book_lists';
     use HasFactory;
@@ -18,7 +18,7 @@ class BookLists extends Model
     // Definición de la relación con el modelo Book
     public function book()
     {
-        return $this->belongsTo(Books::class, 'id_book');
+        return $this->belongsTo(Book::class, 'id_book');
     }
 
     // Definición de la relación con el modelo UserList

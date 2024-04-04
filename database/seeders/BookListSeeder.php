@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\BookLists;
-use App\Models\Books;
+use App\Models\BookList;
+use App\Models\Book;
 use App\Models\UserList;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +15,7 @@ class BookListSeeder extends Seeder
      */
     public function run(): void
     {
-        $bookIds = Books::pluck('id')->toArray();
+        $bookIds = Book::pluck('id')->toArray();
         $userListIds = UserList::pluck('id')->toArray();
 
         $bookLists = [];
@@ -24,7 +24,7 @@ class BookListSeeder extends Seeder
             $bookId = $bookIds[array_rand($bookIds)];
             $userListId = $userListIds[array_rand($userListIds)];
 
-            BookLists::factory()->create([
+            BookList::factory()->create([
                 'id_book' => $bookId,
                 'id_list' => $userListId,
             ]);

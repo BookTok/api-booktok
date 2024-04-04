@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
+use App\Models\Book;
 use App\Models\User;
-use App\Models\Reviews;
+use App\Models\Review;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,12 +17,12 @@ class ReviewSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         $regularUsers = User::where('rol', 'REG')->pluck('id')->toArray();
-        $books = Books::pluck('id')->toArray();
+        $books = Book::pluck('id')->toArray();
 
         for ($i = 0; $i < 10; $i++) {
             $randomUserId = $regularUsers[array_rand($regularUsers)];
             $randomBookId = $books[array_rand($books)];
-            Reviews::factory()->create([
+            Review::factory()->create([
                 'id_book' => $randomBookId,
                 'id_user' => $randomUserId,
             ]);

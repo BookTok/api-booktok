@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Books;
+use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
+use App\Models\Book;
+use App\Models\BookList;
+use App\Models\BookStatus;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -13,8 +18,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $users = Books::get();
-        return $users;
+        $books = Book::paginate(10);
+        return new BookCollection($books);
     }
 
     /**
@@ -28,15 +33,16 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Books $books)
+    public function show($id)
     {
-        //
+        $book = Book::with('author', 'publisher')->find($id);
+        return new BookResource($book);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Books $books)
+    public function update(Request $request, Book $books)
     {
         //
     }
@@ -44,8 +50,9 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Books $books)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response()->json(['message' => 'Libro eliminado correctamente']);
     }
 }

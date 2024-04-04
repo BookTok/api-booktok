@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Friends;
+use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,11 +20,11 @@ class FriendSeeder extends Seeder
             $userId = $regularUserIds[array_rand($regularUserIds)];
             $friendId = $regularUserIds[array_rand($regularUserIds)];
 
-            while ($userId === $friendId || Friends::where('id_user', $userId)->where('id_friend', $friendId)->exists()) {
+            while ($userId === $friendId || Friend::where('id_user', $userId)->where('id_friend', $friendId)->exists()) {
                 $friendId = $regularUserIds[array_rand($regularUserIds)];
             }
 
-            Friends::factory()->create([
+            Friend::factory()->create([
                 'id_user' => $userId,
                 'id_friend' => $friendId,
             ]);

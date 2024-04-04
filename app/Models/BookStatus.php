@@ -25,6 +25,6 @@ class BookStatus extends Model
 
     public function book()
     {
-        return $this->belongsTo(Books::class, 'id_book');
+        return $this->belongsTo(Book::class, 'id_book');
     }
 }

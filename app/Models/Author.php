@@ -5,22 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Friends extends Model
+class Author extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',
-        'id_friend',
+        'web',
+        'description'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    public function friend()
+    public function books()
     {
-        return $this->belongsTo(User::class, 'id_friend');
+        return $this->hasMany(Book::class, 'id_author');
     }
 }
