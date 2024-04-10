@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_book');
             $table->unsignedBigInteger('id_list');
             $table->timestamps();
-            $table->foreign('id_book', 'id_book_list')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_list', 'id_list')->references('id')->on('user_lists')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_book', 'id_book_list')->references('id')->on('books')->onUpdate('cascade');
+            $table->foreign('id_list', 'id_list')->references('id')->on('user_lists')->onUpdate('cascade');
 
             $table->unique(['id_book', 'id_list']);
         });

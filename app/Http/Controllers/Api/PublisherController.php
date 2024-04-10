@@ -21,4 +21,10 @@ class PublisherController extends Controller
         $publi = Publisher::with('user')->find($id);
         return new PublisherResource($publi);
     }
+
+    public function destroy(Publisher $publi)
+    {
+        $publi->delete();
+        return response()->json(['message' => 'Editorial eliminado correctamente']);
+    }
 }
