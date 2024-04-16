@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class BooksFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,11 +16,11 @@ class BooksFactory extends Factory
      */
     public function definition(): array
     {
-        $faker = \Faker\Factory::create();
         return [
-            'name'=>$faker->sentence,
-            'description'=>$faker->text,
-            'publication'=>$faker->date
+            'review' => $this->faker->text,
+            'rating' => $this->faker->numberBetween(1, 5),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

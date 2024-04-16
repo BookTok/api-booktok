@@ -18,16 +18,20 @@ class BookListSeeder extends Seeder
         $bookIds = Book::pluck('id')->toArray();
         $userListIds = UserList::pluck('id')->toArray();
 
-        $bookLists = [];
-
         for ($i = 0; $i < 10; $i++) {
             $bookId = $bookIds[array_rand($bookIds)];
             $userListId = $userListIds[array_rand($userListIds)];
 
-            BookList::factory()->create([
-                'id_book' => $bookId,
-                'id_list' => $userListId,
-            ]);
+            // Verificar si la entrada ya existe en la tabla book_lists
+            $existingEntry = BookList::where('id_book', $bookId)->where('id_list', $userListId)->exists();
+
+            // Si la entrada no existe, crearla
+            if (!$existingEntry) {
+                BookList::factory()->create([
+                    'id_book' => $bookId,
+                    'id_list' => $userListId,
+                ]);
+            }
         }
     }
 }

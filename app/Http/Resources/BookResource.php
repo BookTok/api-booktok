@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Author;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,11 +16,13 @@ class BookResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $author = Author::find($this->id_author);
+        $publisher = Publisher::find($this->id_publisher);
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'id_author' => $this->author->user->name,
-            'id_publisher'=> $this->publisher->user->name,
+            'id_author' => new UserResource($author->user),
+            'id_publisher'=> new UserResource($publisher->user),
             'description'=> $this->description,
             'sales'=> $this->sales,
             'publication'=> $this->publication,

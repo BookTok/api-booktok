@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReviewsResource extends JsonResource
+class AuthorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +14,15 @@ class ReviewsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $book = Book::find($this->id_book);
         return [
             'id' => $this->id,
-            'book'=> $book ? new BookResource($book) : null,
-            'id_user'=> $this->user->name,
-            'review'=> $this->review,
-            'rating'=> $this->rating,
+            'id_user'=> $this->id_user,
+            'web'=> $this->web,
+            'description'=> $this->description,
+            'name'=> $this->user->name,
+            'email'=> $this->user->email,
+            'rol'=> $this->user->rol,
+            'icon'=> $this->user->pic
         ];
     }
 }

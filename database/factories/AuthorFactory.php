@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class FollowsFactory extends Factory
+class AuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,7 +16,10 @@ class FollowsFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create();
         return [
+            'web' => $faker->url,
+            'description' => $faker->text(100),
             'created_at' => now(),
             'updated_at' => now(),
         ];
