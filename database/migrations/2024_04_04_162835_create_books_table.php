@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('sales', ['AMAZ', 'CASA_LIBRO', 'FNAC', 'CORTE_INGLES']);
             $table->date('publication');
             $table->enum('genres', ['FIC', 'NO_FIC', 'POE', 'TEA', 'INF', 'OTROS']);
+            $table->string('pic', 500)->nullable();
             $table->foreign('id_author', 'id_author_book')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_publisher', 'id_publisher_book')->references('id')->on('publishers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

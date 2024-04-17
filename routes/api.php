@@ -24,3 +24,6 @@ Route::get('/books/{id}',[\App\Http\Controllers\Api\BookController::class, 'show
 Route::get('/publishers',[\App\Http\Controllers\Api\PublisherController::class, 'index']);
 Route::get('/publishers/{id}',[\App\Http\Controllers\Api\PublisherController::class, 'show']);
 Route::get('/best-reviews', [\App\Http\Controllers\Api\ReviewsController::class, 'getBestRating']);
+Route::post('/login',[\App\Http\Controllers\Api\LoginController::class, 'login']);
+Route::get('/checkEmail/{email}',[\App\Http\Controllers\Api\UserController::class,'checkEmail']);
+Route::post('/register',[\App\Http\Controllers\Api\UserController::class, 'register']);

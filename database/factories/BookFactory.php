@@ -20,7 +20,8 @@ class BookFactory extends Factory
         return [
             'name'=>$faker->sentence,
             'description'=>$faker->text,
-            'publication'=>$faker->date
+            'publication'=>$faker->date,
+            'pic' => fake()->imageUrl(),
         ];
     }
 }
