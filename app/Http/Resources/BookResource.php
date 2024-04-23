@@ -21,12 +21,13 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'id_author' => new UserResource($author->user),
-            'id_publisher'=> new UserResource($publisher->user),
+            'author' => new UserResource($author->user),
+            'publisher'=> new UserResource($publisher->user),
             'description'=> $this->description,
             'sales'=> $this->sales,
             'publication'=> $this->publication,
-            'genres'=> $this->genres
+            'genres'=> $this->genres,
+            'pic' => $this->pic,
         ];
     }
 }

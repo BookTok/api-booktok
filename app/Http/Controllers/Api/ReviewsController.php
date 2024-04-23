@@ -20,8 +20,23 @@ class ReviewsController extends Controller
 
     public function show($id)
     {
-        $review = Review::findOrFail($id);
-        return new ReviewsResource($review);
+        // Encuentra todas las revisiones que correspondan al ID del libro
+        $reviews = Review::where('id_book', $id)->paginate(10);
+
+        // Devuelve las revisiones como un recurso
+        return new ReviewCollection($reviews);
+    }
+
+    public function getAverageRating($id)
+    {
+        // Consulta para calcular el promedio del rating para todas las revisiones
+        $averageRating = Review::where('id_book', $id)->avg('rating');
+
+        // Redondear el promedio a 1 decimal
+        $roundedAverageRating = round($averageRating, 1);
+
+        // Devolver el promedio como JSON
+        return response()->json(['total' => $roundedAverageRating]);
     }
 
     public function delete($id)
