@@ -74,4 +74,20 @@ class UserController extends Controller
         $user->save();
         return new UserResource($user);
     }
+
+    public function getByEmail($email)
+    {
+        $user = User::where('email',$email)->first();
+
+        $data = new \stdClass();
+
+        foreach ($user->getAttributes() as $key => $value) {
+            if ($key === 'password') {
+                continue;
+            }
+            $data->$key = $value ?? '';
+        }
+
+        return $data;
+    }
 }

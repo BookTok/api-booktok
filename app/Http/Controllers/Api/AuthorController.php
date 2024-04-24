@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\AuthorCollection;
@@ -52,5 +53,25 @@ class AuthorController extends Controller
     {
         $book->delete();
         return response()->json(['message' => 'Libro eliminado correctamente']);
+    }
+
+    public function getByEmail($email)
+    {
+        $user = User::where('email',$email)->first();
+        $author = Author::where('id_user', $user->id)->first();
+
+        $data = new \stdClass();
+        foreach ($author->getAttributes() as $key => $value) {
+            $data->$key = $value ?? '';
+        }
+
+        foreach ($user->getAttributes() as $key => $value) {
+            if ($key === 'password') {
+                continue;
+            }
+            $data->$key = $value ?? '';
+        }
+
+        return $data;
     }
 }

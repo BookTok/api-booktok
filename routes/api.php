@@ -31,3 +31,6 @@ Route::get('/checkEmail/{email}',[\App\Http\Controllers\Api\UserController::clas
 Route::post('/register',[\App\Http\Controllers\Api\UserController::class, 'register']);
 Route::get('/author/{id}',[\App\Http\Controllers\Api\AuthorController::class, 'show']);
 Route::get('/publisher/{id}',[\App\Http\Controllers\Api\PublisherController::class, 'show']);
+Route::get('/authorEmail/{email}', [\App\Http\Controllers\Api\AuthorController::class, 'getByEmail']);
+Route::get('/userEmail/{email}', [\App\Http\Controllers\Api\UserController::class, 'getByEmail']);
+Route::get('/publisherEmail/{email}', [\App\Http\Controllers\Api\PublisherController::class, 'getByEmail']);
