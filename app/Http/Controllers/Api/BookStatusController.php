@@ -32,4 +32,10 @@ class BookStatusController extends Controller
             return response()->json(['error' => 'No se pudo eliminar la entrada de la tabla book_list'], 500);
         }
     }
+
+    public function getBookStatusByUser($id)
+    {
+        $books = BookStatus::where('id_user', $id)->paginate(10);
+        return new BookStatusCollection($books);
+    }
 }

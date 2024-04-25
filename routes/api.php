@@ -34,3 +34,6 @@ Route::get('/publisher/{id}',[\App\Http\Controllers\Api\PublisherController::cla
 Route::get('/authorEmail/{email}', [\App\Http\Controllers\Api\AuthorController::class, 'getByEmail']);
 Route::get('/userEmail/{email}', [\App\Http\Controllers\Api\UserController::class, 'getByEmail']);
 Route::get('/publisherEmail/{email}', [\App\Http\Controllers\Api\PublisherController::class, 'getByEmail']);
+Route::get('/book-status/{id}', [\App\Http\Controllers\Api\BookStatusController::class, 'getBookStatusByUser']);
+Route::get('/user-list/{id}', [\App\Http\Controllers\Api\UserListController::class, 'getUserListByUser']);
+Route::get('/book-list/{id}', [\App\Http\Controllers\Api\BookListController::class, 'getListByUser']);

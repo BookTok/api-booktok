@@ -32,4 +32,10 @@ class BookListController extends Controller
             return response()->json(['error' => 'No se pudo eliminar la entrada de la tabla book_list'], 500);
         }
     }
+
+    public function getListByUser($id)
+    {
+        $books = BookList::where('id_list', $id)->paginate(10);
+        return new BookListCollection($books);
+    }
 }

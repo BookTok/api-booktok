@@ -16,8 +16,8 @@ class BookStatusResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'id_user'=> $this->user->name,
-            'id_book'=> $this->book->name,
+            'id_user'=> $this->user,
+            'id_book'=> $this->book,
             'status'=> $this->status,
         ];
     }
