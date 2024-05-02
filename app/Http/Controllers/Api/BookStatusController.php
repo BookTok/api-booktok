@@ -38,4 +38,12 @@ class BookStatusController extends Controller
         $books = BookStatus::where('id_user', $id)->paginate(10);
         return new BookStatusCollection($books);
     }
+
+    public function getBookStatusByUserAndStatus($id, $status)
+    {
+        $books = BookStatus::where('id_user', $id)
+            ->where('status', $status)
+            ->paginate(10);
+        return new BookStatusCollection($books);
+    }
 }
