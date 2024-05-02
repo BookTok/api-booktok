@@ -37,3 +37,4 @@ Route::get('/publisherEmail/{email}', [\App\Http\Controllers\Api\PublisherContro
 Route::get('/book-status/{id}', [\App\Http\Controllers\Api\BookStatusController::class, 'getBookStatusByUser']);
 Route::get('/user-list/{id}', [\App\Http\Controllers\Api\UserListController::class, 'getUserListByUser']);
 Route::get('/book-list/{id}', [\App\Http\Controllers\Api\BookListController::class, 'getListByUser']);
+Route::get('/book-status/{id}/{status}', [\App\Http\Controllers\Api\BookStatusController::class, 'getBookStatusByUserAndStatus']);
