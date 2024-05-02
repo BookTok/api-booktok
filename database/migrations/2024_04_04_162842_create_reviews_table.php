@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreign('id_book', 'id_book_review')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_user', 'id_user_review')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+
+            // Restricción única combinada para id_book e id_user
+            $table->unique(['id_book', 'id_user']);
         });
     }
 

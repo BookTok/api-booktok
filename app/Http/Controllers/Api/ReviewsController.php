@@ -64,4 +64,9 @@ class ReviewsController extends Controller
 
         return json_encode($books);
     }
+
+    public function store(Request $request)
+    {
+        //
+    }
 }
