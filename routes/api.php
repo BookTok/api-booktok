@@ -38,3 +38,4 @@ Route::get('/book-status/{id}', [\App\Http\Controllers\Api\BookStatusController:
 Route::get('/user-list/{id}', [\App\Http\Controllers\Api\UserListController::class, 'getUserListByUser']);
 Route::get('/book-list/{id}', [\App\Http\Controllers\Api\BookListController::class, 'getListByUser']);
 Route::get('/book-status/{id}/{status}', [\App\Http\Controllers\Api\BookStatusController::class, 'getBookStatusByUserAndStatus']);
+Route::get('/user-review/{id_user}/{id_book}', [\App\Http\Controllers\Api\ReviewsController::class, 'showUser']);

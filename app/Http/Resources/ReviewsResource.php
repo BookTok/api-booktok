@@ -15,11 +15,12 @@ class ReviewsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         $book = Book::find($this->id_book);
         return [
             'id' => $this->id,
             'book'=> $book ? new BookResource($book) : null,
-            'id_user'=> $this->user->name,
+            'id_user'=> $this->user,
             'review'=> $this->review,
             'rating'=> $this->rating,
         ];

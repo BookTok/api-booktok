@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_author');
             $table->unsignedBigInteger('id_publisher');
             $table->string('description', 250);
+            $table->bigInteger('pages');
             $table->enum('sales', ['AMAZ', 'CASA_LIBRO', 'FNAC', 'CORTE_INGLES']);
             $table->date('publication');
             $table->enum('genres', ['FIC', 'NO_FIC', 'POE', 'TEA', 'INF', 'OTROS']);

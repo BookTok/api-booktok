@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
             AuthorSeeder::class,
             PubliserSeeder::class,
             BookSeeder::class,
-            ReviewSeeder::class,
             FollowSeeder::class,
             FriendSeeder::class,
             BookStatusSeeder::class,
+            ReviewSeeder::class,
             UserListSeeder::class,
             BookListSeeder::class
         ]);

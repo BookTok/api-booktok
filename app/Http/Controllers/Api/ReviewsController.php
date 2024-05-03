@@ -9,6 +9,7 @@ use App\Http\Resources\ReviewsResource;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Type\Integer;
 
 class ReviewsController extends Controller
 {
@@ -20,11 +21,14 @@ class ReviewsController extends Controller
 
     public function show($id)
     {
-        // Encuentra todas las revisiones que correspondan al ID del libro
         $reviews = Review::where('id_book', $id)->paginate(10);
-
-        // Devuelve las revisiones como un recurso
         return new ReviewCollection($reviews);
+    }
+
+    public function showUser($id_user, $id_book)
+    {
+        $review = Review::where('id_user', $id_user)->where('id_book', $id_book)->first();
+        return new ReviewsResource($review);
     }
 
     public function getAverageRating($id)

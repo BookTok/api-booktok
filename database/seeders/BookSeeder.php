@@ -23,7 +23,8 @@ class BookSeeder extends Seeder
                 'id_author' => $faker->randomElement($authorIds),
                 'id_publisher' => $faker->randomElement($publisherIds),
                 'sales' => $faker->randomElement(['AMAZ', 'CASA_LIBRO', 'FNAC', 'CORTE_INGLES']),
-                'genres'=> $faker->randomElement(['FIC', 'NO_FIC', 'POE', 'TEA', 'INF', 'OTROS'])
+                'genres'=> $faker->randomElement(['FIC', 'NO_FIC', 'POE', 'TEA', 'INF', 'OTROS']),
+                'pages'=> $faker->numberBetween(50,1000),
             ]);
         }
     }
