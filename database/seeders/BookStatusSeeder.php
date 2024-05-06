@@ -26,11 +26,29 @@ class BookStatusSeeder extends Seeder
             $bookId = $bookIds[array_rand($bookIds)];
             $status = $statuses[array_rand($statuses)];
 
-            BookStatus::factory()->create([
-                'id_user' => $userId,
-                'id_book' => $bookId,
-                'status' => $status,
-            ]);
+            if ($status == 'READ'){
+                BookStatus::factory()->create([
+                    'id_user' => $userId,
+                    'id_book' => $bookId,
+                    'status' => $status,
+                    'pages' => Book::find($bookId)->pages
+                ]);
+            } else if ($status == 'READING'){
+                BookStatus::factory()->create([
+                    'id_user' => $userId,
+                    'id_book' => $bookId,
+                    'status' => $status,
+                    'pages' => rand(1, Book::find($bookId)->pages)
+                ]);
+            } else {
+                BookStatus::factory()->create([
+                    'id_user' => $userId,
+                    'id_book' => $bookId,
+                    'status' => $status,
+                    'pages' => null
+                ]);
+            }
+
         }
     }
 }

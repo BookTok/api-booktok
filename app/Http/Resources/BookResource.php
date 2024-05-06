@@ -28,6 +28,7 @@ class BookResource extends JsonResource
             'publication'=> $this->publication,
             'genres'=> $this->genres,
             'pic' => $this->pic,
+            'pages' => $this->pages,
         ];
     }
 }

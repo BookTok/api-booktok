@@ -19,6 +19,7 @@ class BookStatusResource extends JsonResource
             'id_user'=> $this->user,
             'id_book'=> $this->book,
             'status'=> $this->status,
+            'pages' => $this->pages,
         ];
     }
 }

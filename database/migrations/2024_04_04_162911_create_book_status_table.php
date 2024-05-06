@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_book');
             $table->enum('status', ['READ', 'READING', 'WISH']);
+            $table->bigInteger('pages')->nullable();
             $table->timestamps();
             $table->foreign('id_user', 'id_user_status')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_book', 'id_book_status')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
