@@ -55,4 +55,9 @@ class BookController extends Controller
         $book->delete();
         return response()->json(['message' => 'Libro eliminado correctamente']);
     }
+
+    public function booksByGenre($genre){
+        $books = Book::where('genres', $genre)->paginate(10);
+        return new BookCollection($books);
+    }
 }

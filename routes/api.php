@@ -40,3 +40,5 @@ Route::get('/book-list/{id}', [\App\Http\Controllers\Api\BookListController::cla
 Route::get('/book-status/{id}/{status}', [\App\Http\Controllers\Api\BookStatusController::class, 'getBookStatusByUserAndStatus']);
 Route::get('/user-review/{id_user}/{id_book}', [\App\Http\Controllers\Api\ReviewsController::class, 'showUser']);
 Route::put('/book-status-update/{id_book}/{id_user}', [\App\Http\Controllers\Api\BookStatusController::class, 'update']);
+Route::put('/book-status-update-state/{id_book}/{id_user}', [\App\Http\Controllers\Api\BookStatusController::class, 'updateStatus']);
+Route::get('/books-genre/{genre}',[\App\Http\Controllers\Api\BookController::class, 'booksByGenre']);

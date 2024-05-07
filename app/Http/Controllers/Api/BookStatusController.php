@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookStatusCollection;
 use App\Http\Resources\BookStatusResource;
+use App\Models\Book;
 use App\Models\BookStatus;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -50,6 +51,7 @@ class BookStatusController extends Controller
 
     public function store(Request $request)
     {
+        $book_status = new BookStatus();
 
     }
 
@@ -60,6 +62,32 @@ class BookStatusController extends Controller
         $book->pages = $request->get('pages');
         $book->updated_at = Carbon::now();
         $book->save();
+        return new BookStatusResource($book);
+    }
+
+    public function updateStatus(Request $request, $id_book, $id_user)
+    {
+        $book = BookStatus::where('id_book', $id_book)
+            ->where('id_user', $id_user)->first();
+
+        // Verificar si el valor de 'status' está presente y es válido
+        $status = $request->get('status');
+        if (!in_array($status, ['READ', 'READING', 'WISH'])) {
+            return response()->json(['error' => 'Invalid status value'], 400);
+        }
+
+        $book->status = $status;
+
+        if ($status == 'READ') {
+            $book_read = Book::where('id', $id_book)->first();
+            $book->pages = $book_read->pages;
+        } else {
+            $book->pages = null;
+        }
+
+        $book->updated_at = Carbon::now();
+        $book->save();
+
         return new BookStatusResource($book);
     }
 }
