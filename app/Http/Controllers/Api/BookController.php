@@ -60,4 +60,23 @@ class BookController extends Controller
         $books = Book::where('genres', $genre)->paginate(10);
         return new BookCollection($books);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $books = Book::where('name', 'like', "%$query%")
+            ->orWhereHas('author', function ($authorQuery) use ($query) {
+                $authorQuery->whereHas('user', function ($userQuery) use ($query) {
+                    $userQuery->where('name', 'like', "%$query%");
+                });
+            })
+            ->orWhereHas('publisher', function ($publisherQuery) use ($query) {
+                $publisherQuery->whereHas('user', function ($userQuery) use ($query) {
+                    $userQuery->where('name', 'like', "%$query%");
+                });
+            })
+            ->paginate(10);
+        return new BookCollection($books);
+    }
 }
