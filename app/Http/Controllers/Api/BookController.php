@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
@@ -25,9 +26,23 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        // $userAutenticate = Auth::user();
+        $book = new Book();
+        $book->name = $request->get('name');
+//        if ($request->get('author')){
+//            $book->author = $request->get('author');
+//        } else {
+//             $book->author =  $userAutenticate->name;
+//        }
+//         $book->publisher = $request->get('publisher');
+        $book->description = $request->get('description');
+        $book->sales = $request->get('sales');
+        $book->publication = $request->get('publication');
+        $book->genres = $request->get('genres');
+        $book->save();
+        return new BookResource($book);
     }
 
     /**
@@ -42,9 +57,23 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $books)
+    public function update(BookRequest $request, $id)
     {
-        //
+        // $userAutenticate = Auth::user();
+        $book = Book::findOfFail($id);
+        $book->name = $request->get('name');
+//        if ($request->get('author')){
+//            $book->author = $request->get('author');
+//        } else {
+//         $book->author =  $userAutenticate->name;
+//        }
+//        $book->publisher = $request->get('publisher');
+        $book->description = $request->get('description');
+        $book->sales = $request->get('sales');
+        $book->publication = $request->get('publication');
+        $book->genres = $request->get('genres');
+        $book->save();
+        return new BookResource($book);
     }
 
     /**
