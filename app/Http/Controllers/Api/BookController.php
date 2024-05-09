@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
+use App\Models\Author;
 use App\Models\Book;
-use App\Models\BookList;
-use App\Models\BookStatus;
-use App\Models\Review;
+use App\Models\Publisher;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -28,15 +29,10 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        // $userAutenticate = Auth::user();
         $book = new Book();
         $book->name = $request->get('name');
-//        if ($request->get('author')){
-//            $book->author = $request->get('author');
-//        } else {
-//             $book->author =  $userAutenticate->name;
-//        }
-//         $book->publisher = $request->get('publisher');
+        $book->id_author = $request->get('author');
+        $book->id_publisher = $request->get('publisher');
         $book->description = $request->get('description');
         $book->sales = $request->get('sales');
         $book->publication = $request->get('publication');
@@ -59,15 +55,10 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        // $userAutenticate = Auth::user();
         $book = Book::findOfFail($id);
         $book->name = $request->get('name');
-//        if ($request->get('author')){
-//            $book->author = $request->get('author');
-//        } else {
-//         $book->author =  $userAutenticate->name;
-//        }
-//        $book->publisher = $request->get('publisher');
+        $book->id_author = $request->get('author');
+        $book->id_publisher = $request->get('publisher');
         $book->description = $request->get('description');
         $book->sales = $request->get('sales');
         $book->publication = $request->get('publication');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PublisherRequest;
 use App\Http\Resources\PublisherCollection;
 use App\Http\Resources\PublisherResource;
 use App\Models\Author;
@@ -49,4 +50,29 @@ class PublisherController extends Controller
 
         return $data;
     }
+
+    public function store(PublisherRequest $request)
+    {
+        $userResponse = UserController::register($request);
+        $user = $userResponse->getOriginalContent()['user'];
+        $token = $userResponse->getOriginalContent()['token'];
+        $publisher = new Publisher();
+        $publisher->id_user = $user->id;
+        $publisher->web  = $request->get('web');
+        $publisher->description = $request->get('description');
+        $publisher->save();
+        return response()->json(['token' => $token], 201);
+    }
+
+    public function update(PublisherRequest $request, $id)
+    {
+        $userApi = new UserController();
+        $userApi->update($request, $id);
+        $publisher = Publisher::where('id_user', $id)->firstOrFail();
+        $publisher->web  = $request->get('web');
+        $publisher->description = $request->get('description');
+        $publisher->save();
+        return new PublisherResource($publisher);
+    }
 }
+

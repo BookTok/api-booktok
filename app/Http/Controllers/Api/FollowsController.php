@@ -32,4 +32,8 @@ class FollowsController extends Controller
             return response()->json(['error' => 'No se pudo eliminar la entrada de la tabla book_list'], 500);
         }
     }
+
+    public function store(Request $request){
+
+    }
 }

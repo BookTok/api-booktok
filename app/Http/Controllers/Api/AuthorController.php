@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
 use App\Models\User;
@@ -24,9 +25,17 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
-        //
+        $userResponse = UserController::register($request);
+        $user = $userResponse->getOriginalContent()['user'];
+        $token = $userResponse->getOriginalContent()['token'];
+        $author = new Author();
+        $author->id_user = $user->id;
+        $author->web  = $request->get('web');
+        $author->description = $request->get('description');
+        $author->save();
+        return response()->json(['token' => $token], 201);
     }
 
     /**
@@ -41,9 +50,15 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $books)
+    public function update(AuthorRequest $request, $id)
     {
-        //
+        $userApi = new UserController();
+        $userApi->update($request, $id);
+        $author = Author::where('id_user', $id)->firstOrFail();
+        $author->web  = $request->get('web');
+        $author->description = $request->get('description');
+        $author->save();
+        return new AuthorResource($author);
     }
 
     /**
