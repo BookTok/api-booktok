@@ -11,7 +11,7 @@ class BookListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,8 @@ class BookListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_user' => 'required|integer|exists:users,id',
-            'id_book' => 'required|integer|exists:book,id',
+            'id_list' => 'required|integer|exists:user_lists,id',
+            'id_book' => 'required|integer|exists:books,id',
         ];
     }
 }

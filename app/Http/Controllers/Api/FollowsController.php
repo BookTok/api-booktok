@@ -30,6 +30,7 @@ class FollowsController extends Controller
             ->where('id_author', $id_follow)->first();
             if ($follow->id_publisher != null) {
                 $follow->id_author = null;
+                $follow->save();
             } else{
                 $follow->delete();
             }
@@ -46,6 +47,7 @@ class FollowsController extends Controller
                 ->where('id_publisher', $id_follow)->first();
             if ($follow->id_author != null) {
                 $follow->id_publisher = null;
+                $follow->save();
             } else{
                 $follow->delete();
             }

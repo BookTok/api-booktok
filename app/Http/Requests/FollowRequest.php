@@ -11,7 +11,7 @@ class FollowRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class FollowRequest extends FormRequest
     {
         return [
             'id_user' => 'required|integer|exists:users,id',
-            'id_author' => 'nullable|integer|exists:author,id',
-            'id_publisher' => 'nullable|integer|exists:publisher,id',
+            'id_author' => 'nullable|integer|exists:authors,id',
+            'id_publisher' => 'nullable|integer|exists:publishers,id',
         ];
     }
 }

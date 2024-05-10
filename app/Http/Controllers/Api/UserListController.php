@@ -53,7 +53,7 @@ class UserListController extends Controller
 
     public function update(UserListRequest $request, $id_user, $id_list){
         $list = UserList::where ('id_user', $id_user)
-            ->where('id_list', $id_list)->first();
+            ->where('id', $id_list)->first();
         $list->id_user = $request->get('id_user');
         $list->name = $request->get('name');
         $list->private = $request->get('private');

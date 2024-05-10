@@ -49,12 +49,6 @@ class BookStatusController extends Controller
         return new BookStatusCollection($books);
     }
 
-    public function store(Request $request)
-    {
-        $book_status = new BookStatus();
-
-    }
-
     public function update(Request $request, $id_book, $id_user)
     {
         $book = BookStatus::where('id_book', $id_book)

@@ -43,3 +43,12 @@ Route::put('/book-status-update/{id_book}/{id_user}', [\App\Http\Controllers\Api
 Route::put('/book-status-update-state/{id_book}/{id_user}', [\App\Http\Controllers\Api\BookStatusController::class, 'updateStatus']);
 Route::get('/books-genre/{genre}',[\App\Http\Controllers\Api\BookController::class, 'booksByGenre']);
 Route::get('/books-search/',[\App\Http\Controllers\Api\BookController::class, 'search']);
+Route::get('/follow/',[\App\Http\Controllers\Api\FollowsController::class, 'store']);
+Route::delete('/unfollowPublisher/{id_user}/{id_publisher}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowPublisher']);
+Route::delete('/unfollowAuthor/{id_user}/{id_author}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowAuthor']);
+Route::post('/follow-friend/',[\App\Http\Controllers\Api\FriendsController::class, 'store']);
+Route::delete('/delete-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'delete']);
+Route::post('/user-list/',[\App\Http\Controllers\Api\UserListController::class, 'store']);
+Route::post('/user-list-update/{id_user}/{id_list}',[\App\Http\Controllers\Api\UserListController::class, 'update']);
+Route::delete('/user-list-delete/{id}',[\App\Http\Controllers\Api\UserListController::class, 'delete']);
+Route::post('/book-list-post/',[\App\Http\Controllers\Api\BookListController::class, 'store']);

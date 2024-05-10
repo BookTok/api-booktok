@@ -42,10 +42,10 @@ class BookListController extends Controller
     }
 
     public function store(BookListRequest $request){
-        $list = new BookList();
-        $list->id_user = $request->get('id_user');
-        $list->id_book = $request->get('id_book');
-        $list->save();
-        return new BookListResource($list);
+        $bookList = new BookList();
+        $bookList->id_list = $request->get('id_list');
+        $bookList->id_book = $request->get('id_book');
+        $bookList->save();
+        return new BookListResource($bookList);
     }
 }
