@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\ReviewCollection;
 use App\Http\Resources\ReviewsResource;
@@ -69,8 +70,24 @@ class ReviewsController extends Controller
         return json_encode($books);
     }
 
-    public function store(Request $request)
+    public function store(ReviewRequest $request)
     {
-        //
+        $review = new Review();
+        $review->id_user = $request->get('id_user');
+        $review->id_book = $request->get('id_book');
+        $review->review = $request->get('review');
+        $review->rating = $request->get('rating');
+        $review->save();
+        return new ReviewsResource($review);
+    }
+
+    public function update(ReviewRequest $request, $id){
+        $review = Review::where('id', $id)->first();
+        $review->id_user = $request->get('id_user');
+        $review->id_book = $request->get('id_book');
+        $review->review = $request->get('review');
+        $review->rating = $request->get('rating');
+        $review->save();
+        return new ReviewsResource($review);
     }
 }

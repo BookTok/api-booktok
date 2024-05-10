@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookListRequest;
 use App\Http\Resources\BookListCollection;
 use App\Http\Resources\BookListResource;
 use App\Models\BookList;
@@ -22,10 +23,11 @@ class BookListController extends Controller
         return new BookListResource($bookList);
     }
 
-    public function delete($id)
+    public function delete($id_user, $id_book)
     {
         try {
-            $bookList = BookList::findOrFail($id);
+            $bookList = BookList::where('id_user', $id_user)
+            ->where('id_book', $id_book)->first();
             $bookList->delete();
             return response()->json(['message' => 'La entrada de la tabla book_list ha sido eliminada correctamente'], 200);
         } catch (\Exception $e) {
@@ -37,5 +39,13 @@ class BookListController extends Controller
     {
         $books = BookList::where('id_list', $id)->paginate(10);
         return new BookListCollection($books);
+    }
+
+    public function store(BookListRequest $request){
+        $list = new BookList();
+        $list->id_user = $request->get('id_user');
+        $list->id_book = $request->get('id_book');
+        $list->save();
+        return new BookListResource($list);
     }
 }

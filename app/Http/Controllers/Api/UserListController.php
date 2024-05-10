@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserListRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserListCollection;
 use App\Http\Resources\UserListResource;
@@ -39,5 +40,24 @@ class UserListController extends Controller
     {
         $books = UserList::where('id_user', $id)->paginate(10);
         return new UserListCollection($books);
+    }
+
+    public function store(UserListRequest $request){
+        $list = new UserList();
+        $list->id_user = $request->get('id_user');
+        $list->name = $request->get('name');
+        $list->private = $request->get('private');
+        $list->save();
+        return new UserListResource($list);
+    }
+
+    public function update(UserListRequest $request, $id_user, $id_list){
+        $list = UserList::where ('id_user', $id_user)
+            ->where('id_list', $id_list)->first();
+        $list->id_user = $request->get('id_user');
+        $list->name = $request->get('name');
+        $list->private = $request->get('private');
+        $list->save();
+        return new UserListResource($list);
     }
 }
