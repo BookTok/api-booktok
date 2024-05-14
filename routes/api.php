@@ -44,7 +44,7 @@ Route::put('/book-status-update-state/{id_book}/{id_user}', [\App\Http\Controlle
 Route::get('/books-genre/{genre}',[\App\Http\Controllers\Api\BookController::class, 'booksByGenre']);
 Route::get('/books-search/',[\App\Http\Controllers\Api\BookController::class, 'search']);
 Route::post('/follow/',[\App\Http\Controllers\Api\FollowsController::class, 'store']);
-Route::post('/followers/{id_user}',[\App\Http\Controllers\Api\FollowsController::class, 'show']);
+Route::get('/followers/{id_user}',[\App\Http\Controllers\Api\FollowsController::class, 'show']);
 Route::delete('/unfollowPublisher/{id_user}/{id_publisher}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowPublisher']);
 Route::delete('/unfollowAuthor/{id_user}/{id_author}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowAuthor']);
 Route::post('/follow-friend/',[\App\Http\Controllers\Api\FriendsController::class, 'store']);

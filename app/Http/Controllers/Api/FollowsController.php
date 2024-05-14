@@ -19,7 +19,7 @@ class FollowsController extends Controller
 
     public function show($id_user)
     {
-        $follow = Follow::where('id_user', $id_user);
+        $follow = Follow::where('id_user', $id_user)->get();
         return new FollowsCollection($follow);
     }
 

@@ -16,9 +16,9 @@ class FollowsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'id_user'=> $this->user->name,
-            'id_author' => $this->author->user->name ?? null,
-            'id_publisher'=> $this->publisher->user->name ?? null,
+            'user'=> new UserResource($this->user),
+            'author' => new AuthorResource($this->author),
+            'publisher'=> new PublisherResource($this->publisher),
         ];
     }
 }
