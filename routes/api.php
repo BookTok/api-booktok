@@ -51,4 +51,5 @@ Route::delete('/delete-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\
 Route::post('/user-list/',[\App\Http\Controllers\Api\UserListController::class, 'store']);
 Route::post('/user-list-update/{id_user}/{id_list}',[\App\Http\Controllers\Api\UserListController::class, 'update']);
 Route::delete('/user-list-delete/{id}',[\App\Http\Controllers\Api\UserListController::class, 'delete']);
-Route::post('/book-list-post/',[\App\Http\Controllers\Api\BookListController::class, 'store']);
+Route::post('/book-list-register/', [\App\Http\Controllers\Api\BookListController::class, 'storeBook']);
+Route::delete('/book-list-delete/{id_list}/{id_book}', [\App\Http\Controllers\Api\BookListController::class, 'delete']);

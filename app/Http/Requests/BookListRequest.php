@@ -22,8 +22,8 @@ class BookListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_list' => 'required|integer|exists:user_lists,id',
-            'id_book' => 'required|integer|exists:books,id',
+            'id_list' => 'required|string|exists:user_lists,id',
+            'id_book' => 'required|string|exists:books,id',
         ];
     }
 }

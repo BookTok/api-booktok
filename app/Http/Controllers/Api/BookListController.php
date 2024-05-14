@@ -8,7 +8,6 @@ use App\Http\Resources\BookListCollection;
 use App\Http\Resources\BookListResource;
 use App\Models\BookList;
 use Illuminate\Http\Request;
-
 class BookListController extends Controller
 {
     public function index()
@@ -23,10 +22,10 @@ class BookListController extends Controller
         return new BookListResource($bookList);
     }
 
-    public function delete($id_user, $id_book)
+    public function delete($id_list, $id_book)
     {
         try {
-            $bookList = BookList::where('id_user', $id_user)
+            $bookList = BookList::where('id_list', $id_list)
             ->where('id_book', $id_book)->first();
             $bookList->delete();
             return response()->json(['message' => 'La entrada de la tabla book_list ha sido eliminada correctamente'], 200);
@@ -41,11 +40,11 @@ class BookListController extends Controller
         return new BookListCollection($books);
     }
 
-    public function store(BookListRequest $request){
-        $bookList = new BookList();
-        $bookList->id_list = $request->get('id_list');
-        $bookList->id_book = $request->get('id_book');
-        $bookList->save();
-        return new BookListResource($bookList);
+    public function storeBook(BookListRequest $request){
+        $list = new BookList();
+        $list->id_book = $request->get('id_book');
+        $list->id_list = $request->get('id_list');
+        $list->save();
+        return new BookListResource($list);
     }
 }
