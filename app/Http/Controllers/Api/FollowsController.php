@@ -17,10 +17,10 @@ class FollowsController extends Controller
         return new FollowsCollection($follows);
     }
 
-    public function show($id)
+    public function show($id_user)
     {
-        $follow = Follow::findOrFail($id);
-        return new FollowsResource($follow);
+        $follow = Follow::where('id_user', $id_user)->get();
+        return new FollowsCollection($follow);
     }
 
     public function unfollowAuthor($id_user, $id_follow)
