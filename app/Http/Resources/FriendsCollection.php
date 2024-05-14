@@ -15,16 +15,7 @@ class FriendsCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'current_page' => $this->currentPage(),
-            'total_pages' => $this->lastPage(),
-            'per_page' => $this->perPage(),
-            'total_records' => $this->total(),
             'data' => FriendsResource::collection($this->collection),
-            'status' => 'success',
-            'links' => [
-                'prev' => $this->previousPageUrl(),
-                'next' => $this->nextPageUrl(),
-            ],
         ];
     }
 }

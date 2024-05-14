@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FriendRequest;
 use App\Http\Resources\FollowsCollection;
 use App\Http\Resources\FollowsResource;
+use App\Http\Resources\FriendsCollection;
 use App\Http\Resources\FriendsResource;
 use App\Models\Friend;
 use Illuminate\Http\Request;
@@ -15,13 +16,13 @@ class FriendsController extends Controller
     public function index()
     {
         $friends = Friend::all();
-        return new FollowsCollection($friends);
+        return new FriendsCollection($friends);
     }
 
-    public function show($id)
+    public function show($id_user)
     {
-        $friend = Friend::findOrFail($id);
-        return new FollowsResource($friend);
+        $friend = Friend::where('id_user', $id_user)->get();
+        return new FriendsCollection($friend);
     }
 
     public function delete($id_user, $id_friend)
