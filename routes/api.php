@@ -49,7 +49,7 @@ Route::post('/follow/',[\App\Http\Controllers\Api\FollowsController::class, 'sto
 Route::get('/followers/{id_user}',[\App\Http\Controllers\Api\FollowsController::class, 'show']);
 Route::delete('/unfollowPublisher/{id_user}/{id_publisher}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowPublisher']);
 Route::delete('/unfollowAuthor/{id_user}/{id_author}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowAuthor']);
-Route::post('/follow-friend/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'store']);
+Route::post('/follow-friend/',[\App\Http\Controllers\Api\FriendsController::class, 'store']);
 Route::get('/friends/{id_user}',[\App\Http\Controllers\Api\FriendsController::class, 'show']);
 Route::delete('/delete-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'delete']);
 Route::post('/user-list/',[\App\Http\Controllers\Api\UserListController::class, 'store']);
