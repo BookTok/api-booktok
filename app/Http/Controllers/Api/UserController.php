@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $publi = User::with('user')->find($id);
+        $publi = User::where('id', $id)->first();
         return new UserResource($publi);
     }
 

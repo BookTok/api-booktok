@@ -47,6 +47,12 @@ class AuthorController extends Controller
         return new AuthorResource($book);
     }
 
+    public function findByUserId($id)
+    {
+        $book = Author::where('id_user', $id)->first();
+        return new AuthorResource($book);
+    }
+
     /**
      * Update the specified resource in storage.
      */

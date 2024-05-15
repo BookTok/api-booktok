@@ -30,7 +30,9 @@ Route::post('/login',[\App\Http\Controllers\Api\LoginController::class, 'login']
 Route::get('/checkEmail/{email}',[\App\Http\Controllers\Api\UserController::class,'checkEmail']);
 Route::post('/register',[\App\Http\Controllers\Api\UserController::class, 'register']);
 Route::get('/author/{id}',[\App\Http\Controllers\Api\AuthorController::class, 'show']);
+Route::get('/author-user/{id}',[\App\Http\Controllers\Api\AuthorController::class, 'findByUserId']);
 Route::get('/publisher/{id}',[\App\Http\Controllers\Api\PublisherController::class, 'show']);
+Route::get('/publisher-user/{id}',[\App\Http\Controllers\Api\PublisherController::class, 'findByUserId']);
 Route::get('/authorEmail/{email}', [\App\Http\Controllers\Api\AuthorController::class, 'getByEmail']);
 Route::get('/userEmail/{email}', [\App\Http\Controllers\Api\UserController::class, 'getByEmail']);
 Route::get('/publisherEmail/{email}', [\App\Http\Controllers\Api\PublisherController::class, 'getByEmail']);
@@ -47,7 +49,7 @@ Route::post('/follow/',[\App\Http\Controllers\Api\FollowsController::class, 'sto
 Route::get('/followers/{id_user}',[\App\Http\Controllers\Api\FollowsController::class, 'show']);
 Route::delete('/unfollowPublisher/{id_user}/{id_publisher}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowPublisher']);
 Route::delete('/unfollowAuthor/{id_user}/{id_author}',[\App\Http\Controllers\Api\FollowsController::class, 'unfollowAuthor']);
-Route::post('/follow-friend/',[\App\Http\Controllers\Api\FriendsController::class, 'store']);
+Route::post('/follow-friend/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'store']);
 Route::get('/friends/{id_user}',[\App\Http\Controllers\Api\FriendsController::class, 'show']);
 Route::delete('/delete-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'delete']);
 Route::post('/user-list/',[\App\Http\Controllers\Api\UserListController::class, 'store']);
@@ -55,3 +57,4 @@ Route::post('/user-list-update/{id_user}/{id_list}',[\App\Http\Controllers\Api\U
 Route::delete('/user-list-delete/{id}',[\App\Http\Controllers\Api\UserListController::class, 'delete']);
 Route::post('/book-list-register/', [\App\Http\Controllers\Api\BookListController::class, 'storeBook']);
 Route::delete('/book-list-delete/{id_list}/{id_book}', [\App\Http\Controllers\Api\BookListController::class, 'delete']);
+Route::get('/user/{id}',[\App\Http\Controllers\Api\UserController::class, 'show']);

@@ -25,6 +25,12 @@ class PublisherController extends Controller
         return new PublisherResource($publi);
     }
 
+    public function findByUserId($id)
+    {
+        $pub = Publisher::where('id_user', $id)->first();
+        return new PublisherResource($pub);
+    }
+
     public function destroy(Publisher $publi)
     {
         $publi->delete();

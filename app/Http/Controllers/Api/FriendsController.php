@@ -9,6 +9,7 @@ use App\Http\Resources\FollowsResource;
 use App\Http\Resources\FriendsCollection;
 use App\Http\Resources\FriendsResource;
 use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FriendsController extends Controller
@@ -37,11 +38,20 @@ class FriendsController extends Controller
         }
     }
 
-    public function store(FriendRequest $request)
+    public function store(FriendRequest $request, $id_friend)
     {
+        $user = $request->user();
+        $usuario = User::where('id', $id_friend)->first();
+        $existingApplication = Friend::where('id_friend', $id_friend)
+            ->where('id_user', $user->id)
+            ->first();
+
+        if ($existingApplication) {
+            return response()->json(['error' => 'Ya sois amigos'], 400);
+        }
         $friend = new Friend();
-        $friend->id_user = $request->get('id_user');
-        $friend->id_friend = $request->get('id_friend');
+        $friend->id_user = $user->id;
+        $friend->id_friend = $usuario->id;
         $friend->save();
         return new FriendsResource($friend);
     }
