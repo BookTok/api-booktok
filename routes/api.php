@@ -58,3 +58,6 @@ Route::delete('/user-list-delete/{id}',[\App\Http\Controllers\Api\UserListContro
 Route::post('/book-list-register/', [\App\Http\Controllers\Api\BookListController::class, 'storeBook']);
 Route::delete('/book-list-delete/{id_list}/{id_book}', [\App\Http\Controllers\Api\BookListController::class, 'delete']);
 Route::get('/user/{id}',[\App\Http\Controllers\Api\UserController::class, 'show']);
+Route::post('/review/', [\App\Http\Controllers\Api\ReviewsController::class, 'store']);
+Route::put('/review-update/{id}', [\App\Http\Controllers\Api\ReviewsController::class, 'update']);
+Route::get('/are-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'areFriends']);

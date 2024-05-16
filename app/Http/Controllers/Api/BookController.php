@@ -50,6 +50,18 @@ class BookController extends Controller
         return new BookResource($book);
     }
 
+    public function getBookByAuthor($id_author)
+    {
+        $book = Book::where('id_author', $id_author)->get();
+        return new BookCollection($book);
+    }
+
+    public function getBookByPubisher($id_publisher)
+    {
+        $book = Book::where('id_publisher', $id_publisher)->get();
+        return new BookCollection($book);
+    }
+
     /**
      * Update the specified resource in storage.
      */

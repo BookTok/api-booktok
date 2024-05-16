@@ -11,7 +11,7 @@ class ReviewRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'id_user' => 'required|integer|exists:users,id',
-            'id_book' => 'required|integer|exists:book,id',
+            'id_book' => 'required|integer|exists:books,id',
             'review' => 'required|string|max:100',
             'rating' => 'required|integer|between:1,5'
         ];

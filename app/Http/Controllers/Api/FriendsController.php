@@ -26,6 +26,16 @@ class FriendsController extends Controller
         return new FriendsCollection($friend);
     }
 
+    public function areFriends($id_user, $id_friend)
+    {
+        $friend = Friend::where('id_user', $id_user)->
+        where('id_friend', $id_friend)->first();
+        if ($friend == null) {
+            return response()->json(['bool' => '0']);
+        }
+        return response()->json(['bool' => '1']);
+    }
+
     public function delete($id_user, $id_friend)
     {
         try {
