@@ -52,13 +52,13 @@ class BookController extends Controller
 
     public function getBookByAuthor($id_author)
     {
-        $book = Book::where('id_author', $id_author)->get();
+        $book = Book::where('id_author', $id_author)->paginate(10);
         return new BookCollection($book);
     }
 
     public function getBookByPubisher($id_publisher)
     {
-        $book = Book::where('id_publisher', $id_publisher)->get();
+        $book = Book::where('id_publisher', $id_publisher)->paginate(10);
         return new BookCollection($book);
     }
 

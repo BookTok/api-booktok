@@ -61,3 +61,5 @@ Route::get('/user/{id}',[\App\Http\Controllers\Api\UserController::class, 'show'
 Route::post('/review/', [\App\Http\Controllers\Api\ReviewsController::class, 'store']);
 Route::put('/review-update/{id}', [\App\Http\Controllers\Api\ReviewsController::class, 'update']);
 Route::get('/are-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'areFriends']);
+Route::get('/books-author/{id_author}',[\App\Http\Controllers\Api\BookController::class, 'getBookByAuthor']);
+Route::get('/books-publisher/{id_publisher}',[\App\Http\Controllers\Api\BookController::class, 'getBookByPubisher']);
