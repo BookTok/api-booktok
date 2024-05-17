@@ -57,16 +57,39 @@ class FollowsController extends Controller
         }
     }
 
-    public function store(FollowRequest $request){
+    public function store(Request $request){
         $follow = new Follow();
         $follow->id_user = $request->get('id_user');
-        if ($request->get('id_author')){
+        if ($request->get('id_publisher') == 0) {
             $follow->id_author = $request->get('id_author');
+            $follow->id_publisher = null;
         }
-        if ($request->get('id_publisher')){
+        if ($request->get('id_author') == 0){
             $follow->id_publisher = $request->get('id_publisher');
+            $follow->id_author = null;
         }
         $follow->save();
         return new FollowsResource($follow);
+    }
+
+    public function areFollow($id_user, $id_author, $id_publisher)
+    {
+        if ($id_author == 0) {
+            $friend = Follow::where('id_user', $id_user)->
+            where('id_publisher', $id_publisher)->where('id_author', null)->first();
+            if ($friend == null) {
+                return response()->json(['bool' => '0']);
+            }
+            return response()->json(['bool' => '1']);
+        }
+        if ($id_publisher == 0) {
+            $friend = Follow::where('id_user', $id_user)->
+            where('id_author', $id_author)->where('id_publisher', null)->first();
+            if ($friend == null) {
+                return response()->json(['bool' => '0']);
+            }
+            return response()->json(['bool' => '1']);
+        }
+        return response()->json(['bool' => '0']);
     }
 }
