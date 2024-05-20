@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -60,7 +62,7 @@ class UserController extends Controller
         return response()->json(['token' => $token, 'user' => $user], 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->name = $request->get('name');
@@ -70,6 +72,15 @@ class UserController extends Controller
         }
         if($request->get('password') != '' ){
             $user->password = Hash::make($request->get('password'));
+        }
+        if ($request->hasFile('pic')) {
+            // Elimina la imagen anterior si existe
+            if ($user->pic) {
+                Storage::delete($user->pic);
+            }
+            // Almacena la nueva imagen y obtiene su nombre original
+            $path = $request->file('pic')->store('profile_pics', 'public');
+            $user->pic = $request->file('pic')->getClientOriginalName();
         }
         $user->save();
         return new UserResource($user);
