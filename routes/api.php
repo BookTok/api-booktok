@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users',[\App\Http\Controllers\Api\UserController::class, 'index']);
+Route::put('/user-update/{id}',[\App\Http\Controllers\Api\UserController::class, 'update']);
+Route::delete('/user-delete/{id}',[\App\Http\Controllers\Api\UserController::class, 'delete']);
 Route::get('/books',[\App\Http\Controllers\Api\BookController::class, 'index']);
 Route::get('/books/{id}',[\App\Http\Controllers\Api\BookController::class, 'show']);
 Route::get('/publishers',[\App\Http\Controllers\Api\PublisherController::class, 'index']);
