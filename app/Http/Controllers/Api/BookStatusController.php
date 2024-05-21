@@ -49,6 +49,14 @@ class BookStatusController extends Controller
         return new BookStatusCollection($books);
     }
 
+    public function getBookStatusByUserAndBook($id_book, $id_user)
+    {
+        $books = BookStatus::where('id_user', $id_user)
+            ->where('id_book', $id_book)
+            ->first();
+        return new BookStatusResource($books);
+    }
+
     public function update(Request $request, $id_book, $id_user)
     {
         $book = BookStatus::where('id_book', $id_book)
@@ -61,20 +69,31 @@ class BookStatusController extends Controller
 
     public function updateStatus(Request $request, $id_book, $id_user)
     {
-        $book = BookStatus::where('id_book', $id_book)
-            ->where('id_user', $id_user)->first();
-
-        // Verificar si el valor de 'status' está presente y es válido
         $status = $request->get('status');
         if (!in_array($status, ['READ', 'READING', 'WISH'])) {
             return response()->json(['error' => 'Invalid status value'], 400);
         }
 
+        // Buscar si ya existe el estado del libro para el usuario y el libro especificado
+        $book = BookStatus::where('id_book', $id_book)
+            ->where('id_user', $id_user)
+            ->first();
+
+        // Si no existe, crear un nuevo registro
+        if (!$book) {
+            $book = new BookStatus();
+            $book->id_book = $id_book;
+            $book->id_user = $id_user;
+        }
+
+        // Actualizar o asignar el estado
         $book->status = $status;
 
         if ($status == 'READ') {
             $book_read = Book::where('id', $id_book)->first();
             $book->pages = $book_read->pages;
+        } else if($status == 'READING'){
+            $book->pages = 0;
         } else {
             $book->pages = null;
         }
