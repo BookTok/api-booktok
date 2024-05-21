@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->rol === $role;
     }
+
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'id_user', 'id_friend');
+    }
 }

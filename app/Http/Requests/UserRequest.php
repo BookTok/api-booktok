@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -22,18 +23,18 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('user') ? $this->route('user')->id : null;
+        $userId = $this->route('responsible');
+        $user = User::find($userId);
 
         return [
             'name' => 'required|string|max:250',
             'surname' => 'required|string|max:250',
-            'password' => [
-                'email' => [
-                    'required',
-                    'email',
-                    Rule::unique('user')->ignore($userId),
-                ],
+            'email' => [
                 'required',
+                'email'
+            ],
+            'password' => [
+                'nullable',
                 'string',
                 'min:8',
                 'regex:/^(?=.*[A-Z])(?=.*\d).{8,}$/'
@@ -42,10 +43,15 @@ class UserRequest extends FormRequest
                 'required_with:password',
                 'same:password',
             ],
-            'rol' => 'required'
         ];
     }
 
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
@@ -54,12 +60,10 @@ class UserRequest extends FormRequest
             'email.required' => 'El email es obligatorio',
             'email.email' => 'El email no es válido',
             'email.unique' => 'El email ya está registrado',
-            'password.required' => 'La contraseña es obligatoria',
             'password.min' => 'La contraseña debe tener al menos :min caracteres',
             'password.regex' => 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.',
             'confirmPassword.required_with' => 'El campo repetir contraseña es obligatorio cuando se proporciona una contraseña.',
             'confirmPassword.same' => 'La confirmación de la contraseña no coincide con la contraseña proporcionada.',
-            'rol.required' => 'El rol es obligatorio'
         ];
     }
 }

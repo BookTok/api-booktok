@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Models\BookList;
+use App\Models\Friend;
 use App\Models\User;
+use App\Models\UserList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -28,10 +31,19 @@ class UserController extends Controller
     public function delete($id)
     {
         $user = User::find($id);
-
         if (!$user) {
             return response()->json(['error' => 'No se ha encontrado el usuario'], 404);
         }
+        $friends = Friend::where('id_user', $id)->orWhere('id_friend', $id);
+        $friends->delete();
+
+        BookList::whereIn('id_list', function ($query) use ($id) {
+            $query->select('id')->from('user_lists')->where('id_user', $id);
+        })->delete();
+
+        // Eliminar registros relacionados en la tabla user_lists
+        UserList::where('id_user', $id)->delete();
+
 
         $user->delete();
 
@@ -64,7 +76,7 @@ class UserController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('id', $id)->first();
         $user->name = $request->get('name');
         $user->surname = $request->get('surname');
         if($request->get('email')){
@@ -74,13 +86,13 @@ class UserController extends Controller
             $user->password = Hash::make($request->get('password'));
         }
         if ($request->hasFile('pic')) {
-            // Elimina la imagen anterior si existe
+            // Delete the old picture if it exists
             if ($user->pic) {
                 Storage::delete($user->pic);
             }
-            // Almacena la nueva imagen y obtiene su nombre original
-            $path = $request->file('pic')->store('profile_pics', 'public');
-            $user->pic = $request->file('pic')->getClientOriginalName();
+            $path =  $request->file('pic')->store('public/profile_pics');
+            // Store the new picture
+            $user->pic = Storage::url($path);
         }
         $user->save();
         return new UserResource($user);
