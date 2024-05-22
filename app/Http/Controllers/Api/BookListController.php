@@ -36,7 +36,7 @@ class BookListController extends Controller
 
     public function getListByUser($id)
     {
-        $books = BookList::where('id_list', $id)->paginate(10);
+        $books = BookList::where('id_list', $id)->get();
         return new BookListCollection($books);
     }
 
@@ -46,5 +46,17 @@ class BookListController extends Controller
         $list->id_list = $request->get('id_list');
         $list->save();
         return new BookListResource($list);
+    }
+
+    public  function isInList($id_list, $id_book)
+    {
+        $books = BookList::where('id_list', $id_list)
+            ->where('id_book', $id_book)
+            ->first();
+        if ($books){
+            return response()->json(['bool' =>  1], 200);
+        } else {
+            return response()->json(['bool' => 0], 200);
+        }
     }
 }

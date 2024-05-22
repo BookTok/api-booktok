@@ -55,9 +55,11 @@ Route::post('/follow-friend/',[\App\Http\Controllers\Api\FriendsController::clas
 Route::get('/friends/{id_user}',[\App\Http\Controllers\Api\FriendsController::class, 'show']);
 Route::delete('/delete-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\FriendsController::class, 'delete']);
 Route::post('/user-list/',[\App\Http\Controllers\Api\UserListController::class, 'store']);
+Route::get('/list/{id}',[\App\Http\Controllers\Api\UserListController::class, 'show']);
 Route::post('/user-list-update/{id_user}/{id_list}',[\App\Http\Controllers\Api\UserListController::class, 'update']);
 Route::delete('/user-list-delete/{id}',[\App\Http\Controllers\Api\UserListController::class, 'delete']);
 Route::post('/book-list-register/', [\App\Http\Controllers\Api\BookListController::class, 'storeBook']);
+Route::get('/is-in-list/{id_list}/{id_book}', [\App\Http\Controllers\Api\BookListController::class, 'isInList']);
 Route::delete('/book-list-delete/{id_list}/{id_book}', [\App\Http\Controllers\Api\BookListController::class, 'delete']);
 Route::get('/user/{id}',[\App\Http\Controllers\Api\UserController::class, 'show']);
 Route::post('/review/', [\App\Http\Controllers\Api\ReviewsController::class, 'store']);

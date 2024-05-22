@@ -38,7 +38,7 @@ class UserListController extends Controller
 
     public function getUserListByUser($id)
     {
-        $books = UserList::where('id_user', $id)->paginate(10);
+        $books = UserList::where('id_user', $id)->get();
         return new UserListCollection($books);
     }
 
