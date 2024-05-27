@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -68,3 +69,5 @@ Route::get('/are-friend/{id_user}/{id_friend}',[\App\Http\Controllers\Api\Friend
 Route::get('/are-follow/{id_user}/{id_author}/{id_publisher}',[\App\Http\Controllers\Api\FollowsController::class, 'areFollow']);
 Route::get('/books-author/{id_author}',[\App\Http\Controllers\Api\BookController::class, 'getBookByAuthor']);
 Route::get('/books-publisher/{id_publisher}',[\App\Http\Controllers\Api\BookController::class, 'getBookByPubisher']);
+Route::middleware('auth:sanctum')->get('/friends-activity', [\App\Http\Controllers\Api\BookStatusController::class, 'friendsActivity']);
+Route::middleware('auth:sanctum')->get('/recommended-books', [BookController::class, 'recommendedBooks']);

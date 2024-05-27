@@ -103,4 +103,24 @@ class BookStatusController extends Controller
 
         return new BookStatusResource($book);
     }
+
+    public function friendsActivity(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        // Obtener los amigos especificando la tabla users
+        $friends = $user->friends()->pluck('users.id');
+
+        // Obtener la actividad de los amigos con un límite
+        $activities = BookStatus::whereIn('id_user', $friends)
+            ->latest()
+            ->take(5) // Limitar a las 10 actividades más recientes
+            ->get();
+
+        return BookStatusResource::collection($activities);
+    }
 }

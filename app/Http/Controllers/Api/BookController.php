@@ -8,6 +8,7 @@ use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookStatus;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -110,5 +111,29 @@ class BookController extends Controller
             })
             ->paginate(10);
         return new BookCollection($books);
+    }
+
+    public function recommendedBooks(Request $request)
+    {
+        $userId = $request->user()->id;
+
+        // Obtener los géneros de los libros que el usuario está leyendo
+        $genres = BookStatus::where('id_user', $userId)
+            ->where('status', 'READING')
+            ->join('books', 'book_status.id_book', '=', 'books.id')
+            ->pluck('books.genres')
+            ->unique();
+
+        // Obtener libros recomendados basados en esos géneros
+        $recommendedBooks = Book::whereIn('genres', $genres)
+            ->whereNotIn('id', function($query) use ($userId) {
+                $query->select('id_book')
+                    ->from('book_status')
+                    ->where('id_user', $userId);
+            })
+            ->limit(10)
+            ->get();
+
+        return json_encode($recommendedBooks);
     }
 }
