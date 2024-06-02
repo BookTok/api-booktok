@@ -6,13 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
-use App\Models\Author;
 use App\Models\Book;
 use App\Models\BookStatus;
-use App\Models\Publisher;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -28,7 +24,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
         $book = new Book();
         $book->name = $request->get('name');
@@ -38,6 +34,7 @@ class BookController extends Controller
         $book->sales = $request->get('sales');
         $book->publication = $request->get('publication');
         $book->genres = $request->get('genres');
+        $book->pages = $request->get('pages');
         $book->save();
         return new BookResource($book);
     }
@@ -117,14 +114,11 @@ class BookController extends Controller
     {
         $userId = $request->user()->id;
 
-        // Obtener los géneros de los libros que el usuario está leyendo
         $genres = BookStatus::where('id_user', $userId)
-            ->where('status', 'READING')
             ->join('books', 'book_status.id_book', '=', 'books.id')
             ->pluck('books.genres')
             ->unique();
 
-        // Obtener libros recomendados basados en esos géneros
         $recommendedBooks = Book::whereIn('genres', $genres)
             ->whereNotIn('id', function($query) use ($userId) {
                 $query->select('id_book')

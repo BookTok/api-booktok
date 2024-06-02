@@ -74,7 +74,7 @@ class UserController extends Controller
         return response()->json(['token' => $token, 'user' => $user], 201);
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
         $user->name = $request->get('name');
@@ -84,15 +84,6 @@ class UserController extends Controller
         }
         if($request->get('password') != '' ){
             $user->password = Hash::make($request->get('password'));
-        }
-        if ($request->hasFile('pic')) {
-            // Delete the old picture if it exists
-            if ($user->pic) {
-                Storage::delete($user->pic);
-            }
-            $path =  $request->file('pic')->store('public/profile_pics');
-            // Store the new picture
-            $user->pic = Storage::url($path);
         }
         $user->save();
         return new UserResource($user);
@@ -112,5 +103,18 @@ class UserController extends Controller
         }
 
         return $data;
+    }
+
+    public function upload_pic(Request $request, $id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($request->hasFile('pic')) {
+            $profilePicturePath = $request->file('pic')->store('public/users_pic');
+            $profilePicturePath = str_replace('public/', '', $profilePicturePath);
+        } else {
+            $profilePicturePath = null;
+        }
+        $user->pic = $profilePicturePath;
+        $user->save();
     }
 }

@@ -11,7 +11,7 @@ class BookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,12 +23,13 @@ class BookRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'author' => 'required|string|max:50',
-            'publisher' => 'required|string|max:50',
+            'author' => 'required|exists:authors,id',
+            'publisher' => 'required|exists:publishers,id',
             'description' => 'required|string|max:200',
             'sales'=> 'required|string',
             'publication'=> 'required|date',
             'genre'=> 'required|string',
+            'pages'=> 'required|integer',
         ];
     }
 

@@ -71,3 +71,4 @@ Route::get('/books-author/{id_author}',[\App\Http\Controllers\Api\BookController
 Route::get('/books-publisher/{id_publisher}',[\App\Http\Controllers\Api\BookController::class, 'getBookByPubisher']);
 Route::middleware('auth:sanctum')->get('/friends-activity', [\App\Http\Controllers\Api\BookStatusController::class, 'friendsActivity']);
 Route::middleware('auth:sanctum')->get('/recommended-books', [BookController::class, 'recommendedBooks']);
+Route::post('/books-store',[\App\Http\Controllers\Api\BookController::class, 'store']);
