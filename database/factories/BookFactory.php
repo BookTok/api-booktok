@@ -19,7 +19,7 @@ class BookFactory extends Factory
         $faker = \Faker\Factory::create();
         return [
             'name'=>$faker->sentence,
-            'description'=>$faker->text,
+            'description'=>$faker->text(100),
             'publication'=>$faker->date,
             'pic' => fake()->imageUrl(),
         ];
